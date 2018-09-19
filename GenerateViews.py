@@ -23,15 +23,16 @@ for idx, i in enumerate(a):
 		view = view[:view.find(']')]
 		view = view.replace('.', '').replace('[','')
 		print(view)
-		rst.append('If Not Existe_Vista("'+view+'", dbsConnect) Then')
-		rst.append('   vScript = " " & _ ')
+		
+		rst.append('vScript = " " & _ ')
 		continue
 	if(('go' in [x.lower() for x in i.strip().split(' ')]) and (flag == True)):
+		rst[-1] = rst[-1].replace('&', '').replace('_', '')
+		print(rst[-1])
 		rst.append("\n")
-		rst.append("   If NOT Crear_Vista((\""+ view +"\"), vScript, dbsConnect) Then ")
-		rst.append("      Vistas = False")
-		rst.append('   End If   \' (Not Crear_Vista("'+view+'")')
-		rst.append("End If 'Not Existe_Vista("+view+", dbsConnect)")
+		rst.append("If NOT Crear_Vista((\""+ view +"\"), vScript, dbsConnect) Then ")
+		rst.append("   Vistas = False")
+		rst.append('End If   \' (Not Crear_Vista("'+view+'")')
 		rst.append("\n\n")
 		
 		flag = False
